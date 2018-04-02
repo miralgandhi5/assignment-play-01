@@ -1,0 +1,53 @@
+@import helper._
+@import play.filters.csrf.CSRF._
+@import models.entities.ProfileData
+@(profileForm: Form[ProfileData])(implicit flash: play.api.mvc.Flash,session: play.api.mvc.Session, messages: MessagesProvider,requests: RequestHeader)
+@main("User Profile") {
+@navbar()
+@if(profileForm.hasGlobalErrors) {
+<ul>
+    @for(error <- profileForm.globalErrors) {
+    <li>@Messages(error.messages, error.args)</li>
+    }
+</ul>
+}
+@if(profileForm.hasGlobalErrors) {
+<ul>
+    @for(error <- profileForm.globalErrors) {
+    <li>@Messages(error.messages, error.args)</li>
+    }
+</ul>
+}
+<center>
+@helper.form(action = routes.UserController.updateUser ){
+@CSRF.formField
+@helper.inputText(profileForm("firstName"),
+'_label -> "First Name",'_showConstraints -> false)
+@helper.inputText(profileForm("middleName"),
+'_label -> "Middle Name",'_showConstraints -> false)
+@helper.inputText(profileForm("lastName"),
+'_label -> "Last Name",'_showConstraints -> false)
+@helper.inputText(profileForm("password"),
+'_label -> "Password",'_showConstraints -> false)
+@helper.inputText(profileForm("mobileNumber"),
+'_label -> "Mobile Number",'_showConstraints -> false)
+    @select(
+    profileForm("gender"),
+    options(List("male","female")),
+    '_label -> "Gender",'_showConstraints -> false
+    )
+@helper.inputText(profileForm("age"),
+    '_label -> "age",'_showConstraints -> false)
+@select(
+    profileForm("hobbies"),
+    options(List("listening music","cooking","reading")),
+    '_label -> "hobbies",'_showConstraints -> false
+    )
+<button name="update">Update</button>
+</center>
+
+
+
+}
+
+}

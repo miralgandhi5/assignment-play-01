@@ -1,0 +1,34 @@
+@import models.entities.Assignment
+@(assignments: List[Assignment])(implicit messages: Messages,flash: Flash,session: play.api.mvc.Session,requests: RequestHeader)
+@import helper._
+@main("Assignments"){
+@navbar()
+<center>
+    @if(session.get("admin").getOrElse("false") == "true"){
+    <a  href='@controllers.routes.AssignmentController.assignment'>Add Assignment</a>
+    }
+    <table class="table" >
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        @for(assignment <- assignments){
+        <tr>
+            <td>@assignment.id</td>
+            <td>@assignment.title</td>
+            <td>@assignment.description</td>
+            @if(session.get("admin").getOrElse("false") == "true"){
+            <td>
+                <a href='@controllers.routes.AssignmentController.deleteAssignment(assignment.id)'>
+                    Delete
+                </a>
+            </td>
+            }
+        </tr>
+        }
+    </table>
+
+
+</center>
+}

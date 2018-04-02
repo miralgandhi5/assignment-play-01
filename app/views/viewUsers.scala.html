@@ -1,0 +1,24 @@
+@import models.entities.User
+@(users: List[User])(implicit messages: Messages,flash: Flash,session: play.api.mvc.Session,requests: RequestHeader)
+@import helper._
+@main("Users"){
+@navbar()
+<center>
+
+    <table class="table">
+        <tr>
+            <th>UserName</th>
+        </tr>
+        @for(user <- users){
+        <tr>
+            <td>@user.userName</td>
+            @if(user.isEnabled){
+            <td><a href='@controllers.routes.AdminController.disableUser(user.userName)'>Disable</a></td>
+            }else{
+            <td><a href='@controllers.routes.AdminController.enableUser(user.userName)'>Enable</a></td>
+            }
+        </tr>
+        }
+    </table>
+</center>
+}

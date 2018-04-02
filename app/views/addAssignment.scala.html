@@ -1,0 +1,19 @@
+@import helper._
+@import play.filters.csrf.CSRF._
+@import models.entities.AssignmentData
+@(assignmentForm: Form[AssignmentData])(implicit flash: play.api.mvc.Flash,session: play.api.mvc.Session, messages: MessagesProvider,requests: RequestHeader)
+@main("Add Assignment"){
+@navbar()
+<h1><center>Add Assignment</center></h1>
+<h4 style="color: Red;"><center>@flash.get("status").getOrElse("")</center></h4>
+<center>
+    @helper.form(action = routes.AssignmentController.addAssignment){
+    @CSRF.formField
+    @helper.inputText(assignmentForm("title"),
+    '_label -> "Title")
+    @helper.inputText(assignmentForm("description"),
+    '_label -> "Description")
+    <button name="add">Add</button>
+    }
+</center>
+}

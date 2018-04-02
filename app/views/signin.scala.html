@@ -1,0 +1,26 @@
+
+@import helper._
+@import play.filters.csrf.CSRF._
+@import models.entities.LogInData
+@(userLoginForm: Form[LogInData])(implicit flash: play.api.mvc.Flash,session: play.api.mvc.Session, messages: MessagesProvider,requests: RequestHeader)
+@main("LogIn"){
+<h1><center>Log In</center></h1>
+<h4 style="color: Red;"><center>@flash.get("login").getOrElse("")</center></h4>
+
+
+
+<center>
+
+    @helper.form(action = routes.UserController.login){
+    @CSRF.formField
+    @helper.inputText(userLoginForm("userName"),
+    '_label -> "UserName",'_showConstraints -> false)
+
+    @helper.inputPassword(userLoginForm("password"),
+    '_label -> "Password",'_showConstraints -> false)
+
+    <button name="login">LogIn</button>
+    }
+    <a href='@routes.UserController.forgetPassword'>Forgot Password?</a>
+</center>
+}
