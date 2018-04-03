@@ -2,7 +2,6 @@ package controllers
 
 import javax.inject._
 
-import models.AssignmentRepo
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 
@@ -18,19 +17,18 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   implicit val messages: MessagesApi = cc.messagesApi
 
   /**
-    * Create an Action to render an HTML page.
-    *
-    * The configuration in the `routes` file means that this method
-    * will be called when the application receives a `GET` request with
-    * a path of `/`.
+    * renders home page.
+    * @return index page with status Ok.
     */
-
-
-  def index() = Action { implicit request: Request[AnyContent] =>
+  def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
   }
 
-  def error() = Action { implicit request: Request[AnyContent] =>
+  /**
+    * renders error page.
+    * @return error page with status Ok.
+    */
+  def error(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.errorPage())
   }
 
